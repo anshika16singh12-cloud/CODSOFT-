@@ -1,27 +1,36 @@
-# MAKE A CALCULATOR
-print("Addition")
-print("Subtraction")
-print("Multiplication")
-print("Division")
-option = int(input("Choose an operation:"))
+# Calculator Program
+
+print("==== SIMPLE CALCULATOR ====")
+print("1. Addition")
+print("2. Subtraction")
+print("3. Multiplication")
+print("4. Division")
+choice = int(input("Choose an operation (1-4):"))
 result = 0
-if (option in [1,2,3,4]):
+if (choice in [1,2,3,4]):
     num1 = int(input("Enter first number:"))
     num2 = int(input("Enter second number:"))
 
-    if(option == 1):
+    if(choice == 1):
         result = num1 + num2
+        operation = "Addition"
 
-    elif(option == 2):
+    elif(choice == 2):
         result = num1 - num2
+        operation = "Subtraction"
 
-    elif(option == 3):
+    elif(choice == 3):
         result = num1 * num2
+        operation = "Multiplication"
 
-    elif(option == 4):
-        result = num1 // num2
+    elif(choice == 4):
+        if num2 == 0:
+            print("Error: Division by zero is not allowed.")
+            exit()
+        result = num1 / num2
+        operation = "Division"
 
 else:
-    print("Invalid operation entered")
+    print("Invalid choice. Please select a number between 1 and 4.")
 
 print("The result of the operation is {}".format(result))
