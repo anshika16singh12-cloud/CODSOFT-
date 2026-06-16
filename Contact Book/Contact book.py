@@ -1,50 +1,112 @@
-contacts = {}
+contacts = []
+
+def add_contact():
+    print("\n--- Add New Contact ---")
+    name = input("Enter Name: ")
+    phone = input("Enter Phone Number: ")
+    email = input("Enter Email: ")
+    address = input("Enter Address: ")
+
+    contact = {
+        "name": name,
+        "phone": phone,
+        "email": email,
+        "address": address
+    }
+
+    contacts.append(contact)
+    print("Contact Added Successfully!")
+
+def view_contacts():
+    print("\n--- Contact List ---")
+
+    if not contacts:
+        print("No Contacts Found!")
+        return
+
+    for i, contact in enumerate(contacts, start=1):
+        print(f"{i}. {contact['name']} - {contact['phone']}")
+
+def search_contact():
+    print("\n--- Search Contact ---")
+    search = input("Enter Name or Phone Number: ")
+
+    found = False
+
+    for contact in contacts:
+        if (search.lower() == contact['name'].lower() or
+                search == contact['phone']):
+            print("\nContact Found:")
+            print("Name:", contact['name'])
+            print("Phone:", contact['phone'])
+            print("Email:", contact['email'])
+            print("Address:", contact['address'])
+            found = True
+            break
+
+    if not found:
+        print("Contact Not Found!")
+
+def update_contact():
+    print("\n--- Update Contact ---")
+    phone = input("Enter Phone Number of Contact to Update: ")
+
+    for contact in contacts:
+        if contact['phone'] == phone:
+            print("Enter New Details")
+
+            contact['name'] = input("New Name: ")
+            contact['phone'] = input("New Phone Number: ")
+            contact['email'] = input("New Email: ")
+            contact['address'] = input("New Address: ")
+
+            print("Contact Updated Successfully!")
+            return
+
+    print("Contact Not Found!")
+
+def delete_contact():
+    print("\n--- Delete Contact ---")
+    phone = input("Enter Phone Number of Contact to Delete: ")
+
+    for contact in contacts:
+        if contact['phone'] == phone:
+            contacts.remove(contact)
+            print("Contact Deleted Successfully!")
+            return
+
+    print("Contact Not Found!")
 
 while True:
-    print("\n===== CONTACT BOOK =====")
+    print("\n========== CONTACT BOOK ==========")
     print("1. Add Contact")
-    print("2. View Contacts")
+    print("2. View Contact List")
     print("3. Search Contact")
-    print("4. Delete Contact")
-    print("5. Exit")
+    print("4. Update Contact")
+    print("5. Delete Contact")
+    print("6. Exit")
 
-    choice = input("Enter your choice: ")
+    choice = input("Enter Your Choice (1-6): ")
 
-    if choice == "1":
-        name = input("Enter Name: ")
-        phone = input("Enter Phone Number: ")
+    if choice == '1':
+        add_contact()
 
-        contacts[name] = phone
-        print(f"Contact '{name}' added successfully!")
+    elif choice == '2':
+        view_contacts()
 
-    elif choice == "2":
-        if len(contacts) == 0:
-            print("No contacts available.")
-        else:
-            print("\n--- Contact List ---")
-            for name, phone in contacts.items():
-                print(f"Name: {name} | Phone: {phone}")
+    elif choice == '3':
+        search_contact()
 
-    elif choice == "3":
-        search_name = input("Enter name to search: ")
+    elif choice == '4':
+        update_contact()
 
-        if search_name in contacts:
-            print(f"Phone Number: {contacts[search_name]}")
-        else:
-            print("Contact not found.")
+    elif choice == '5':
+        delete_contact()
 
-    elif choice == "4":
-        delete_name = input("Enter name to delete: ")
-
-        if delete_name in contacts:
-            del contacts[delete_name]
-            print("Contact deleted successfully!")
-        else:
-            print("Contact not found.")
-
-    elif choice == "5":
-        print("Thank you for using Contact Book!")
+    elif choice == '6':
+        print("Thank You for Using Contact Book!")
         break
 
     else:
-        print("Invalid choice! Please try again.")
+        print("Invalid Choice! Please Try Again.")
+        
